@@ -1,0 +1,37 @@
+from bs4 import BeautifulSoup
+from urllib.request import urlopen
+# Now, we're creating a beautiful soup object from a string. 
+helloworld = "<p> Hello World </p>"
+soup_string = BeautifulSoup(helloworld, features="html.parser")
+#print(soup_string)
+
+#During the creation of the object, Beautiful Soup converts the input markup (HTML/XML) to a tree structure using the supported parsers
+#While doing so, the markupwill be represented as different Beautiful Soup objects such as BeautifulSoup, Tag, and NavigableString.
+
+# Creating a BeautifulSoup object from a file-like object
+#This is useful in parsing an online web page, which is the most common use of Beautiful Soup.
+
+url = "http://www.packtpub.com/books"
+#page = urlopen(url)
+#soup_page = BeautifulSoup(page)
+
+with open("foo.html", "r") as foo_file:
+    soup_foo = BeautifulSoup(foo_file, features="html.parser")
+
+#print(soup_foo)
+
+invalid_html = "<a invalid content"
+
+soup_invalid_html = BeautifulSoup(invalid_html, "xml")
+#print(soup_invalid_html)
+
+
+html_a_tag= """<html><body><p>Test html a tag example</p>
+<a href="http://www.packtpub.com'>Home</a>
+<a href="http;//www.packtpub.com/books'>Books</a>
+</body>
+</html>"""
+soup = BeautifulSoup(html_a_tag, "xml")
+atag = soup.a
+atag.name = "p"
+print(soup)
